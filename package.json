@@ -1,0 +1,51 @@
+{
+  "homepage": "http://johan1113.github.io/audiovisualizer-react",
+  "name": "audiovisualizer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.6.0",
+    "@material-ui/icons": "^4.5.1",
+    "firebase": "^7.5.0",
+    "gh-pages": "^2.1.1",
+    "gsap": "^2.1.3",
+    "node-sass": "^4.12.0",
+    "orbit-controls": "^1.2.4",
+    "react": "^16.10.2",
+    "react-audio-spectrum": "^0.1.0",
+    "react-color": "^2.17.3",
+    "react-dom": "^16.10.2",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "react-three": "^0.9.7",
+    "redux": "^4.0.5",
+    "three": "^0.109.0",
+    "three-orbitcontrols": "^2.108.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "main": "index.js",
+  "license": "MIT"
+}

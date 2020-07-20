@@ -1,0 +1,15 @@
+.home {
+    width: 100%;
+    height: 100vh;
+    transition: 7s ease-in;
+
+    & .container {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(0deg, rgba(15, 15, 15, 0.43461134453781514) 0%, rgba(15, 15, 15, 1) 86%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;    
+    }
+}
