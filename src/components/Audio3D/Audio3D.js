@@ -3,8 +3,9 @@ import * as THREE from 'three';
 import OrbitControls from 'three-orbitcontrols';
 import { TweenMax, Power2 } from "gsap/TweenMax";
 import './Audio3D.scss';
+import { connect } from "react-redux";
 
-const Audio3D = (props) => {
+const Audio3D = ({currentSong}) => {
 
     const [songName, setSongName] = React.useState(' ');
     const [songArtist, setSongArtist] = React.useState(' ');
@@ -13,43 +14,39 @@ const Audio3D = (props) => {
     const sketch = React.useRef();
 
     React.useEffect(() => {
-        sketch.current = AudioVisualization(canvasParent.current, props.bgColor, props.fgColor);
-        console.log(props.fileName);
-        console.log(props.bgColor);
-        console.log(props.fgColor);
-        console.log(props.mp3File);
+        sketch.current = AudioVisualization(canvasParent.current, currentSong.bgColor, currentSong.fgColor);
     }, []);
 
     React.useEffect(() => {
-        if (props.onPlay) {
+        if (currentSong.onPlay) {
             sketch.current.play();
         } else {
             sketch.current.pause();
         }
-    }, [props.onPlay]);
+    }, [currentSong.onPlay]);
 
     React.useEffect(() => {
-        sketch.current.setSceneColor(props.bgColor);
-    }, [props.bgColor]);
+        sketch.current.setSceneColor(currentSong.bgColor);
+    }, [currentSong.bgColor]);
 
     React.useEffect(() => {
-        sketch.current.setTalesColor(props.fgColor);
-    }, [props.fgColor]);
+        sketch.current.setTalesColor(currentSong.fgColor);
+    }, [currentSong.fgColor]);
 
     React.useEffect(() => {
-        sketch.current.setSongFile(props.mp3File);
-    }, [props.mp3File]);
+        sketch.current.setSongFile(currentSong.mp3File);
+    }, [currentSong.mp3File]);
 
     React.useEffect(() => {
-        var getFileName = props.fileName.replace('.mp3', '').split('-', 2);
+        var getFileName = currentSong.fileName.replace('.mp3', '').split('-', 2);
         setSongName(getFileName[1]);
         setSongArtist(getFileName[0]);
-    }, [props.fileName]);
+    }, [currentSong.fileName]);
 
     return (
-        <div className="Audio3D" width="65%" height="100%" ref={canvasParent} style={{backgroundColor: props.bgColor}}>
-            <h1 style={{color: props.fgColor}}>{songName}</h1>
-            <h2 style={{color: props.fgColor}}>{songArtist}</h2>
+        <div className="Audio3D" width="65%" height="100%" ref={canvasParent} style={{backgroundColor: currentSong.bgColor}}>
+            <h1 style={{color: currentSong.fgColor}}>{songName}</h1>
+            <h2 style={{color: currentSong.fgColor}}>{songArtist}</h2>
         </div>
     )
 }
@@ -442,5 +439,12 @@ const AudioVisualization = (canvas, bgColor, fgColor) => {
 
 }
 
+const mapStateToProps = (state) => {
+    return {
+        currentSong: state.currentSong,
+    };
+};
 
-export default Audio3D;
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Audio3D);

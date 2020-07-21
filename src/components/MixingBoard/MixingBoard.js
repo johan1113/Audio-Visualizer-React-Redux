@@ -1,40 +1,39 @@
 import React from 'react';
 import './MixingBoard.scss';
 import { CirclePicker } from 'react-color';
-import { fb } from '../../utils/firebase';
+import { connect } from 'react-redux';
+import setSongFile from '../../redux/actions/setSongFile';
+import setBgColor from '../../redux/actions/setBgColor';
+import setFgColor from '../../redux/actions/setFgColor';
+import setOnPlay from '../../redux/actions/setOnPlay';
+
 
 const MixingBoard = (props) => {
+
+    const {currentSong} = props;
 
     const handleBgColorChange = (bgColor) => {
         props.setBgColor(bgColor.hex);
         console.log(bgColor.hex);
-        console.log(props.bgColor);
+        console.log(currentSong.bgColor);
     }
 
     const handleFgColorChange = (fgColor) => {
         props.setFgColor(fgColor.hex);
         console.log(fgColor.hex);
-        console.log(props.fgColor);
+        console.log(currentSong.fgColor);
     }
 
     const handleChange = (event) => {
-        var newMp3File = URL.createObjectURL(event.currentTarget.files[0]);
-        var newBlobFile = new Blob([event.currentTarget.files[0]], { type: "sound/mp3" });
-        var fileName = event.currentTarget.files[0].name;
-        console.log('/////// NEW MP3 FILE //////////')
-        console.log(newMp3File);
-        console.log(fileName);
-        //props.setMp3File(newMp3File);
-        //props.setBlobFile(newBlobFile);
-        //props.setFileName(fileName);
+        props.setSongFile(event);
     }
 
     const handlePlay = () => {
-        //props.setOnPlay(true);
+        props.setOnPlay(true);
     }
 
     const handleStop = () => {
-        //props.setOnPlay(false);
+        props.setOnPlay(false);
     }
 
     return (
@@ -49,7 +48,7 @@ const MixingBoard = (props) => {
                 <label className="button" id="btn_black" for="labelSong">Load Audio</label>
 
                 <div className="controls">
-                    <button className="play" style={{ display: !props.onPlay ? 'block' : 'none' }} onClick={handlePlay}>
+                    <button className="play" style={{ display: !currentSong.onPlay ? 'block' : 'none' }} onClick={handlePlay}>
                         <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" version="1.1" width="32" height="32" viewBox="0 0 25 32"
                             data-tags="play,media control">
                             <g fill="#000000" transform="scale(0.03125 0.03125)">
@@ -57,7 +56,7 @@ const MixingBoard = (props) => {
                             </g>
                         </svg>
                     </button>
-                    <button className="pause" style={{ display: props.onPlay ? 'block' : 'none' }} onClick={handleStop}>
+                    <button className="pause" style={{ display: currentSong.onPlay ? 'block' : 'none' }} onClick={handleStop}>
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"
                             data-tags="pause,media control">
                             <g fill="#000000" transform="scale(0.03125 0.03125)">
@@ -71,16 +70,31 @@ const MixingBoard = (props) => {
 
             <section id="fg">
                 <h2>Figures Color</h2>
-                <CirclePicker color={props.fgColor} onChange={handleFgColorChange} />
+                <CirclePicker color={currentSong.fgColor} onChange={handleFgColorChange} />
             </section>
 
             <section id="bg">
                 <h2>Background Color</h2>
-                <CirclePicker color={props.bgColor} onChange={handleBgColorChange} />
+                <CirclePicker color={currentSong.bgColor} onChange={handleBgColorChange} />
             </section>
 
         </div>
     )
 }
 
-export default MixingBoard;
+const mapDispatchToProps = dispatch => {
+    return{
+        setSongFile: event => dispatch(setSongFile(event)),
+        setBgColor: bgColor => dispatch(setBgColor(bgColor)),
+        setFgColor: fgColor => dispatch(setFgColor(fgColor)),
+        setOnPlay: onPlay => dispatch(setOnPlay(onPlay))
+    };
+};
+
+const mapStateToProps = (state) => {
+    return {
+        currentSong: state.currentSong,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MixingBoard);
