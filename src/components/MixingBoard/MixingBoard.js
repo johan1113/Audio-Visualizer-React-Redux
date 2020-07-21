@@ -24,68 +24,17 @@ const MixingBoard = (props) => {
         console.log('/////// NEW MP3 FILE //////////')
         console.log(newMp3File);
         console.log(fileName);
-        props.setMp3File(newMp3File);
-        props.setBlobFile(newBlobFile);
-        props.setFileName(fileName);
+        //props.setMp3File(newMp3File);
+        //props.setBlobFile(newBlobFile);
+        //props.setFileName(fileName);
     }
 
     const handlePlay = () => {
-        props.setOnPlay(true);
+        //props.setOnPlay(true);
     }
 
     const handleStop = () => {
-        props.setOnPlay(false);
-    }
-
-    const handleSavedSongs = () => {
-
-        //localStorage.clear();
-        //var lsSongsList = JSON.parse(localStorage.getItem('songsList'));
-        let db = fb.firestore();
-        db.collection('songs').add({
-            //mp3File: props.mp3File,
-            fileName: props.fileName,
-            fgColor: props.fgColor,
-            bgColor: props.bgColor
-        });
-
-        console.log('/////////// SE ACTUALIZÓ DATABASE FIREBASE //////////////');
-
-        // Create a root reference
-        var storageRef = fb.storage().ref();
-
-        // Create file metadata including the content type
-        var metadata = {
-            contentType: 'audio/mp3',
-        };
-
-        // Upload the file and metadata
-        var uploadTask = storageRef.child('songs/' + props.fileName).put(props.blobFile, metadata);
-
-        console.log('/////////// SE ACTUALIZÓ STORAGE FIREBASE //////////////');
-        /*
-        var newSong = {
-            mp3File : props.mp3File,
-            fileName: props.fileName,
-            fgColor: props.fgColor,
-            bgColor: props.bgColor
-        }
-
-        if(lsSongsList != null){
-            lsSongsList.push(newSong);
-        }else{
-            lsSongsList = [];
-            lsSongsList.push(newSong);
-        }
-        localStorage.setItem('songsList', JSON.stringify(lsSongsList));
-
-        console.log('/////////// SE ACTUALIZÓ EL LOCAL STORAGE //////////////');
-        console.log(JSON.parse(localStorage.getItem('songsList')));
-        */
-    }
-
-    const handlePlaylist = () => {
-        props.setControllerCase(1);
+        //props.setOnPlay(false);
     }
 
     return (
@@ -129,11 +78,6 @@ const MixingBoard = (props) => {
                 <h2>Background Color</h2>
                 <CirclePicker color={props.bgColor} onChange={handleBgColorChange} />
             </section>
-
-            <div className="windowButtons">
-                <button className="button" id="btn_black" onClick={handleSavedSongs}>save this song</button>
-                <button className="button" id="btn_black" onClick={handlePlaylist}>your saved songs</button>
-            </div>
 
         </div>
     )

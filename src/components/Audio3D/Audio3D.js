@@ -14,6 +14,10 @@ const Audio3D = (props) => {
 
     React.useEffect(() => {
         sketch.current = AudioVisualization(canvasParent.current, props.bgColor, props.fgColor);
+        console.log(props.fileName);
+        console.log(props.bgColor);
+        console.log(props.fgColor);
+        console.log(props.mp3File);
     }, []);
 
     React.useEffect(() => {
@@ -35,7 +39,6 @@ const Audio3D = (props) => {
     React.useEffect(() => {
         sketch.current.setSongFile(props.mp3File);
     }, [props.mp3File]);
-
 
     React.useEffect(() => {
         var getFileName = props.fileName.replace('.mp3', '').split('-', 2);
