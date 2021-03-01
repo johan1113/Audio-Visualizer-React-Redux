@@ -20,7 +20,7 @@
     "react-scripts": "3.2.0",
     "react-three": "^0.9.7",
     "redux": "^4.0.5",
-    "three": "^0.109.0",
+    "three": "^0.125.0",
     "three-orbitcontrols": "^2.108.1"
   },
   "scripts": {
